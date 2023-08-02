@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESPERO QUE GOSTE AMOR!!!</title>
+  <style>
+    /* Estilos da caixa flutuante */
+    .caixa {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: none; /* As caixas estarão ocultas por padrão */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Caixa flutuante da pergunta inicial -->
+  <div id="caixaPergunta" class="caixa">
+    <p>Oi amor. Está preparada?</p>
+    <button onclick="responder('Sim')">Com certeza mo!</button>
+    <button onclick="responder('Não')">hmm, acho que não!</button>
+  </div>
+
+  <!-- Caixa flutuante da resposta "Sim" -->
+  <div id="caixaSim" class="caixa">
+    <p>Ótima escolha mo. Eu acredito que irá gostar.</p>
+    <button onclick="proximaCaixa()">Continuar</button>
+  </div>
+
+  <!-- Caixa flutuante da resposta "Não" -->
+  <div id="caixaNao" class="caixa">
+    <p>Tem certeza? É uma surpresa tão boa.</p>
+    <button onclick="possoContinuar()">Quero ser surpreendida!</button>
+    <button onclick="sair()">Sair</button>
+  </div>
+
+  <!-- Caixa flutuante da mensagem final -->
+  <div id="caixaFinal" class="caixa">
+    <p>Ótima escolha meu amor, clique no botão abaixo e tente não se emocionar!</p>
+    <button onclick="fecharMensagem()">Eu quero ser surpreendida Amor!</button>
+  </div>
+
+  <!-- Caixa flutuante da mensagem após a última pergunta -->
+  <div id="caixaMensagem" class="caixa" style="display: none;">
+    <!-- O poema será inserido aqui -->
+  </div>
+
+  <script>
+    // Contador para controlar a quantidade de piscadas
+    var contadorPiscada = 0;
+
+    // Função para tratar a resposta "Sim"
+    function responder(resposta) {
+      if (resposta === 'Sim') {
+        document.getElementById('caixaPergunta').style.display = 'none';
+        document.getElementById('caixaSim').style.display = 'block';
+      } else if (resposta === 'Não') {
+        document.getElementById('caixaPergunta').style.display = 'none';
+        document.getElementById('caixaNao').style.display = 'block';
+      }
+    }
+
+    // Função para exibir a próxima caixa após a resposta "Sim"
+    function proximaCaixa() {
+      document.getElementById('caixaSim').style.display = 'none';
+      document.getElementById('caixaFinal').style.display = 'block';
+
+      // Chama a função para fazer a tela piscar 5 vezes com o texto "TANTAN" após 2 segundos
+      setTimeout(function() {
+        piscarTelaComTexto(true);
+      }, 2000);
+    }
+
+    // Função para a resposta "Não" - Posso continuar
+    function possoContinuar() {
+      document.getElementById('caixaNao').style.display = 'none';
+      document.getElementById('caixaFinal').style.display = 'block';
+
+      // Chama a função para fazer a tela piscar 5 vezes com o texto "TANTAN" após 2 segundos
+      setTimeout(function() {
+        piscarTelaComTexto(true);
+      }, 2000);
+    }
+
+    // Função para a resposta "Não" - Sair
+    function sair() {
+      document.getElementById('caixaNao').style.display = 'none';
+      // Aqui você pode realizar ações para encerrar o processo ou redirecionar o usuário, se necessário.
+    }
+
+    // Função para fechar a mensagem final
+    function fecharMensagem() {
+      document.getElementById('caixaFinal').style.display = 'none';
+
+      // Exibe a caixa de mensagem personalizada após fechar a mensagem final
+      document.getElementById('caixaMensagem').style.display = 'block';
+
+      // Chama a função para fazer a tela piscar 5 vezes com o texto "TANTAN" após 2 segundos
+      setTimeout(function() {
+        piscarTelaComTexto(true);
+      }, 2000);
+    }
+
+    // Função para fazer a tela piscar 5 vezes com o texto "TANTAN"
+    function piscarTelaComTexto(isLastPiscada) {
+      if (contadorPiscada < 5) {
+        document.body.style.backgroundColor = (contadorPiscada % 2 === 0) ? '#fff' : '#000';
+        document.getElementById('caixaMensagem').innerText = (contadorPiscada % 2 === 0) ? 'TANTAN' : '';
+        contadorPiscada++;
+        setTimeout(function() {
+          piscarTelaComTexto(isLastPiscada);
+        }, 300);
+      } else {
+        // Após piscar 5 vezes, parar de piscar e exibir o poema na mensagem personalizada
+        document.body.style.backgroundColor = '#fff';
+        document.getElementById('caixaMensagem').innerText = `Oi amor da minha vida!!! ♡ 
+
+        És uma mulher incrível
+        Que é mais forte do que tudo
+        Pra você nada é impossível
+        E pra te lembrar, aqui está seu namorado barbudo
+        
+        Ainda irá conquistar muitas coisas 
+        Algumas que já tem em mente
+        Outras ainda mais maravilhosas
+        E continuará a ser sempre sorridente
+        
+        Sou o homem mais feliz que existe
+        Tendo você como minha mulher
+        Nosso romance até a lua assiste
+        Pode ter certeza que sempre irei te escolher
+        
+        Fazer você feliz é minha maior meta,
+        Deus escolheu um pro outro a pessoa certa
+        Pensamos em crescer juntos em todos sentidos
+        E que sempre vamos ser unidos
+        
+        Você está indo atrás de um novo sonho
+        E estarei aqui pra sempre te apoiar
+        Pra te falar isso esse poema componho
+        Além de apoiar eu sempre irei te amar.`;
+        if (isLastPiscada) {
+          document.getElementById('caixaMensagem').style.display = 'block';
+        }
+      }
+    }
+
+    // Exibir a caixa de pergunta inicial ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('caixaPergunta').style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
